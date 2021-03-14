@@ -1,0 +1,1 @@
+web: java -jar build/libs/bil481hw1part2-all.jar
