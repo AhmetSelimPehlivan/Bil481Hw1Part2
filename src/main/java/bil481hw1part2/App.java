@@ -8,7 +8,6 @@ import static spark.Spark.get;
 import static spark.Spark.port;
 import static spark.Spark.post;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -58,7 +57,7 @@ public class App {
             int value = Integer.parseInt(sc2.next().replaceAll("\\s",""));
             inputList2.add(value);
           }
-          System.out.println(inputList2);
+          System.out.println(inputList2); //
 
           String input4 = req.queryParams("input4").replaceAll("\\s","");
           int input2AsInt = Integer.parseInt(input4);

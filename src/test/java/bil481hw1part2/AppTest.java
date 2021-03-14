@@ -3,12 +3,69 @@
  */
 package bil481hw1part2;
 
+import java.rmi.UnexpectedException;
+import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class AppTest {
-    @Test void appHasAGreeting() {
-        App classUnderTest = new App();
-  //      assertNotNull(classUnderTest.getGreeting(), "app should have a greeting");
+    @Test void arrayNullTest() {
+        assertThrows(
+				Exception.class,
+				() -> { App.sumOfValuesTwoArray(null, 2,null, 1); });
+        assertThrows(
+				Exception.class,
+				() -> { App.sumOfValuesTwoArray(null, 2,new ArrayList<>(), 1); });
+        assertThrows(
+				Exception.class,
+				() -> { App.sumOfValuesTwoArray(new ArrayList<>(), 2,null, 1); });
+    }
+    @Test void arraySizeTest() {
+        ArrayList<Integer> a = new ArrayList<Integer>();
+        ArrayList<Integer> b = new ArrayList<Integer>();
+        for(int i = 0 ; i<5; i++){
+            a.add(i);
+            b.add(i);
+        }
+        assertThrows(
+				Exception.class,
+                () -> { App.sumOfValuesTwoArray(a, 22,b, 1); });
+        assertThrows(
+				Exception.class,
+                () -> { App.sumOfValuesTwoArray(a, 22,b, 88); });
+    }
+    @Test void emptyArrayTest() {
+        ArrayList<Integer> b = new ArrayList<Integer>();
+        ArrayList<Integer> a = new ArrayList<Integer>();
+            a.add(1);
+        assertThrows(
+            Exception.class,
+            () -> { App.sumOfValuesTwoArray(b, 0,b, 0); });
+        assertThrows(
+            Exception.class,
+            () -> { App.sumOfValuesTwoArray(b, 0,a, 0); });
+        assertThrows(
+            Exception.class,
+            () -> { App.sumOfValuesTwoArray(a, 0,b, 0); });
+        
+    }
+    @Test void largeIntegerTest() {
+        ArrayList<Integer> a = new ArrayList<Integer>();
+        
+        a.add(100000);
+        a.add(200000);
+        
+        try{
+        assertEquals(300000,App.sumOfValuesTwoArray(a,1,a, 0));
+        }catch(Exception e){new UnexpectedException("Unexpected Input");}
+    }
+    @Test void correctInputTest() {
+        ArrayList<Integer> a = new ArrayList<Integer>();
+        for(int i = 0 ; i<5; i++){
+            a.add(i);
+        }
+        try{
+        assertEquals(3,App.sumOfValuesTwoArray(a,1,a,2));
+        }catch(Exception e){new UnexpectedException("Unexpected Result");}
     }
 }
