@@ -27,8 +27,9 @@ public class App {
         }
       }
     public static void main(String[] args) {
+        int port = Integer.parseInt(System.getenv("PORT"));
+        port(port);
         
-        port(Integer.parseInt(System.getenv("PORT")));
         get("/", (req, res) -> "Welcome To 2 Value Calculator From Array !");
 
         post("/compute", (req, res) -> {
