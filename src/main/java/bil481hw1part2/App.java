@@ -16,18 +16,21 @@ import spark.ModelAndView;
 import spark.template.mustache.MustacheTemplateEngine;
 
 public class App {
-    public String getGreeting() {
-        return "Hello world.";
-    }
-    //public static void method4Parameter(Arraylist<Integer> aList,Integer i, )
+    public static int sumOfValuesTwoArray(ArrayList<Integer> aListFirst, int firstIndex,ArrayList<Integer> aListSecond, int secondIndex)throws Exception{
+        if (aListFirst == null || aListSecond == null){
+            throw new Exception("Array is null.");
+        }
+        else if(aListFirst.size() <= firstIndex || aListSecond.size() <= secondIndex){
+            throw new Exception("Index out of bound.");
+        }
+        else{
+            return aListFirst.get(firstIndex)+aListSecond.get(secondIndex);
+        }
+      }
     public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
-
-        get("/", (req, res) -> "Hello, World!");
+        get("/", (req, res) -> "Welcome To 2 Value Calculator From Array !");
 
         post("/compute", (req, res) -> {
-          //System.out.println(req.queryParams("input1"));
-          //System.out.println(req.queryParams("input2"));
 
           String input1 = req.queryParams("input1");
           java.util.Scanner sc1 = new java.util.Scanner(input1);
@@ -38,14 +41,29 @@ public class App {
             int value = Integer.parseInt(sc1.next().replaceAll("\\s",""));
             inputList.add(value);
           }
-          sc1.close();
           System.out.println(inputList);    ////
 
           String input2 = req.queryParams("input2").replaceAll("\\s","");
-          int input2AsInt = Integer.parseInt(input2);
+          int input1AsInt = Integer.parseInt(input2);
+          sc1.close();
 
-          //int result = App.sumOfNumbersInIndeces(inputList, input2AsInt, input3AsInt);
-          int result =input2AsInt;
+          String input3 = req.queryParams("input3");
+          java.util.Scanner sc2 = new java.util.Scanner(input3);
+          sc1.useDelimiter("[;\r\n]+");
+          ArrayList<Integer> inputList2 = new ArrayList<>();
+          while (sc2.hasNext())
+          {
+            int value = Integer.parseInt(sc2.next().replaceAll("\\s",""));
+            inputList2.add(value);
+          }
+          System.out.println(inputList2);
+
+          String input4 = req.queryParams("input4").replaceAll("\\s","");
+          int input2AsInt = Integer.parseInt(input4);
+          sc2.close();
+          
+
+          int result =sumOfValuesTwoArray(inputList, input1AsInt, inputList2, input2AsInt);
 
           Map<String, Integer> map = new HashMap<String, Integer>();
           map.put("result", result);
